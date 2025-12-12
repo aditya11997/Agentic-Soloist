@@ -1,0 +1,21 @@
+# Virtualenv
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# OS cruft
+.DS_Store
+
+# Environment & secrets
+.env
+
+# Local data & logs (runtime state, not code)
+data/
+logs/
+
+# Editor settings (optional)
+.vscode/
+.idea/
