@@ -1,6 +1,6 @@
 # Demo Video
 
-📺 Public link: https://youtu.be/incident-copilot-demo
+📺 Public link: https://app.screencastify.com/watch/XcbIkydOCS9yCVOGgnS3?checkOrg=34000574-45cc-4635-9a4b-67272de2c88c
 
 ### Timestamps
 - **00:00–00:30** — Intro, environment vars, `adk web` launch.
