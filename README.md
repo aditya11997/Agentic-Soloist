@@ -1,42 +1,33 @@
-# Agentic AI App Hackathon Template
+# Incident Copilot (Google ADK)
 
-Welcome! This repository is your starting point for the **Agentic AI App Hackathon**. It includes:
+An agentic incident response assistant that runs on **Google Agentic Development Kit (ADK)**. It ingests user text and screenshots, classifies the incident, retrieves similar past issues, proposes actions, and creates a Jira ticket.
 
-- A consistent folder structure  
-- An environment spec (`environment.yml` or `Dockerfile`)  
-- Documentation placeholders to explain your design and demo
+## Setup
+- Python 3.11+ and `pip`
+- Create a virtual env (optional): `python -m venv .venv && source .venv/bin/activate`
+- Install deps: `pip install google-adk google-genai requests python-dotenv`
+- Configure environment (e.g., in `.env`):
+  - `GEMINI_API_KEY` (or `GOOGLE_API_KEY`)
+  - Jira: `JIRA_BASE_URL`, `JIRA_EMAIL`, `JIRA_API_TOKEN`, optional `JIRA_PROJECT_KEY`, `JIRA_ISSUE_TYPE`
+  - Optional: `GITHUB_TOKEN`, `GITHUB_REPO` for code search tool
 
-## 📋 Submission Checklist
+## Running the agent
+```bash
+cd /Users/aditya/Agentic-Soloist
+adk web
+```
+Open the ADK UI, start a conversation, and provide an incident description (plus an image if available). The timeline will show each step executed.
 
-- [ ] All code in `src/` runs without errors  
-- [ ] `ARCHITECTURE.md` contains a clear diagram sketch and explanation  
-- [ ] `EXPLANATION.md` covers planning, tool use, memory, and limitations  
-- [ ] `DEMO.md` links to a 3–5 min video with timestamped highlights  
+## What it does (happy path)
+1. Ingest message and optional screenshot.
+2. Classify and structure the incident.
+3. Retrieve similar past incidents from `data/incidents.json`.
+4. Run code search/insight helpers (GitHub-based).
+5. Generate suspected causes and recommended actions.
+6. Create a Jira ticket via `src/tools/jira_client.py`.
+7. Persist incident + ticket into memory and return a final summary.
 
-
-## 🚀 Getting Started
-
-1. **Clone / Fork** this template.  Very Important. Fork Name MUST be the same name as the teamn name
-
-
-## 📂 Folder Layout
-
-![Folder Layout Diagram](images/folder-githb.png)
-
-
-
-## 🏅 Judging Criteria
-
-- **Technical Excellence **  
-  This criterion evaluates the robustness, functionality, and overall quality of the technical implementation. Judges will assess the code's efficiency, the absence of critical bugs, and the successful execution of the project's core features.
-
-- **Solution Architecture & Documentation **  
-  This focuses on the clarity, maintainability, and thoughtful design of the project's architecture. This includes assessing the organization and readability of the codebase, as well as the comprehensiveness and conciseness of documentation (e.g., GitHub README, inline comments) that enables others to understand and potentially reproduce or extend the solution.
-
-- **Innovative Gemini Integration **  
-  This criterion specifically assesses how effectively and creatively the Google Gemini API has been incorporated into the solution. Judges will look for novel applications, efficient use of Gemini's capabilities, and the impact it has on the project's functionality or user experience. You are welcome to use additional Google products.
-
-- **Societal Impact & Novelty **  
-  This evaluates the project's potential to address a meaningful problem, contribute positively to society, or offer a genuinely innovative and unique solution. Judges will consider the originality of the idea, its potential real‑world applicability, and its ability to solve a challenge in a new or impactful way.
-
-
+## Notes
+- Data artifacts live under `data/` (conversations, incidents, images).
+- Jira creation is real; ensure env vars are set before running the TICKET_CREATE step.
+- The ADK session state keeps short-term context; long-term memory is JSON-backed for demo simplicity.
